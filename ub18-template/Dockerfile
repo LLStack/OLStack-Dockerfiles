@@ -8,7 +8,7 @@ RUN wget -O -  https://get.acme.sh | sh
 ARG OLS_VERSION
 ARG PHP_VERSION
 
-RUN wget https://openlitespeed.org/preuse/openlitespeed-$OLS_VERSION.tgz && \
+RUN curl -O https://openlitespeed.org/preuse/openlitespeed-$OLS_VERSION.tgz && \
     tar xvf openlitespeed-$OLS_VERSION.tgz && cd openlitespeed && \
     LINENUM=$(grep -n "LSPHPVER=" _in.sh | cut -d: -f 1) && \
     sed -i "${LINENUM}d" _in.sh && \
@@ -16,9 +16,9 @@ RUN wget https://openlitespeed.org/preuse/openlitespeed-$OLS_VERSION.tgz && \
     ./install.sh && \
 	rm -rf ../openlitespeed ../openlitespeed-$OLS_VERSION.tgz
 
-RUN apt-get install $lsphp$PHP_VERSION $lsphp$PHP_VERSION-common $lsphp$PHP_VERSION-mysql $lsphp$PHP_VERSION-opcache \
-    $lsphp$PHP_VERSION-curl $lsphp$PHP_VERSION-json $lsphp$PHP_VERSION-imagick $lsphp$PHP_VERSION-redis $lsphp$PHP_VERSION-intl \
-    $lsphp$PHP_VERSION-sqlite3 $lsphp$PHP_VERSION-ldap -y
+RUN apt-get install lsphp$PHP_VERSION lsphp$PHP_VERSION-common lsphp$PHP_VERSION-mysql lsphp$PHP_VERSION-opcache \
+    lsphp$PHP_VERSION-curl lsphp$PHP_VERSION-json lsphp$PHP_VERSION-imagick lsphp$PHP_VERSION-redis lsphp$PHP_VERSION-intl \
+    lsphp$PHP_VERSION-sqlite3 lsphp$PHP_VERSION-ldap -y
 
 RUN wget -O /usr/local/lsws/admin/misc/lsup.sh \
     https://raw.githubusercontent.com/litespeedtech/openlitespeed/master/dist/admin/misc/lsup.sh && \

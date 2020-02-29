@@ -11,7 +11,7 @@ RUN wget -O -  https://get.acme.sh | sh
 ARG OLS_VERSION
 ARG PHP_VERSION
 
-RUN wget https://openlitespeed.org/preuse/openlitespeed-$OLS_VERSION.tgz && \
+RUN curl -O https://openlitespeed.org/preuse/openlitespeed-$OLS_VERSION.tgz && \
     tar xvf openlitespeed-$OLS_VERSION.tgz && cd openlitespeed && \
     LINENUM=$(grep -n "LSPHPVER=" _in.sh | cut -d: -f 1) && \
     sed -i "${LINENUM}d" _in.sh && \
