@@ -20,6 +20,8 @@ RUN apt-get install lsphp$PHP_VERSION lsphp$PHP_VERSION-common lsphp$PHP_VERSION
     lsphp$PHP_VERSION-curl lsphp$PHP_VERSION-json lsphp$PHP_VERSION-imagick lsphp$PHP_VERSION-redis lsphp$PHP_VERSION-intl \
     lsphp$PHP_VERSION-sqlite3 lsphp$PHP_VERSION-ldap -y
 
+RUN apt-get autoclean && rm -rf /var/lib/apt/lists/*
+
 RUN wget -O /usr/local/lsws/admin/misc/lsup.sh \
     https://raw.githubusercontent.com/litespeedtech/openlitespeed/master/dist/admin/misc/lsup.sh && \
     chmod +x /usr/local/lsws/admin/misc/lsup.sh && \
