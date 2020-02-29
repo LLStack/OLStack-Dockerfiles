@@ -1,0 +1,39 @@
+language: shell
+os: linux
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
+
+services:
+  - docker
+env:
+  - OLS_VERSION=1.6.9 PHP_VERSION=lsphp74 FOLDER=ub18-template TAG=latest
+  - OLS_VERSION=1.6.9 PHP_VERSION=lsphp74 FOLDER=ub18-template
+  - OLS_VERSION=1.6.9 PHP_VERSION=lsphp73 FOLDER=ub18-template
+  - OLS_VERSION=1.6.9 PHP_VERSION=lsphp72 FOLDER=ub18-template
+  - OLS_VERSION=1.6.9 PHP_VERSION=lsphp71 FOLDER=ub18-template
+  - OLS_VERSION=1.6.9 PHP_VERSION=lsphp70 FOLDER=ub18-template
+  - OLS_VERSION=1.6.9 PHP_VERSION=lsphp56 FOLDER=ub16-template
+  - OLS_VERSION=1.6.9 PHP_VERSION=lsphp55 FOLDER=ub16-template
+  - OLS_VERSION=1.6.9 PHP_VERSION=lsphp54 FOLDER=ub16-template
+  - OLS_VERSION=1.6.9 PHP_VERSION=lsphp53 FOLDER=ub14-template
+  - OLS_VERSION=1.5.11 PHP_VERSION=lsphp74 FOLDER=ub18-template
+  - OLS_VERSION=1.5.11 PHP_VERSION=lsphp73 FOLDER=ub18-template
+  - OLS_VERSION=1.5.11 PHP_VERSION=lsphp72 FOLDER=ub18-template
+  - OLS_VERSION=1.5.11 PHP_VERSION=lsphp71 FOLDER=ub18-template
+  - OLS_VERSION=1.5.11 PHP_VERSION=lsphp70 FOLDER=ub18-template
+  - OLS_VERSION=1.5.11 PHP_VERSION=lsphp56 FOLDER=ub16-template
+  - OLS_VERSION=1.5.11 PHP_VERSION=lsphp55 FOLDER=ub16-template
+  - OLS_VERSION=1.5.11 PHP_VERSION=lsphp54 FOLDER=ub16-template
+  - OLS_VERSION=1.5.11 PHP_VERSION=lsphp53 FOLDER=ub14-template
+
+script:
+  - |
+    if [ $TRAVIS_BRANCH == "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
+        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        cd $FOLDER && bash build.sh -ols $OLS_VERSION -php $PHP_VERSION -tag "$TAG" --push
+    else
+        cd $FOLDER && bash build.sh -ols $OLS_VERSION -php $PHP_VERSION
+    fi    
