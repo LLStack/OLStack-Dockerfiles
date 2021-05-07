@@ -1,12 +1,12 @@
 FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND noninteractive
 
+ARG OLS_VERSION
+ARG PHP_VERSION
+
 RUN apt-get update && apt-get install apt-utils -y && apt-get install wget curl cron tzdata dialog -y
 
 RUN wget -O -  https://get.acme.sh | sh
-
-ARG OLS_VERSION
-ARG PHP_VERSION
 
 RUN curl -O https://openlitespeed.org/preuse/openlitespeed-$OLS_VERSION.tgz && \
     tar xvf openlitespeed-$OLS_VERSION.tgz && cd openlitespeed && \
@@ -14,7 +14,7 @@ RUN curl -O https://openlitespeed.org/preuse/openlitespeed-$OLS_VERSION.tgz && \
     sed -i "${LINENUM}d" _in.sh && \
     sed -i "${LINENUM}iLSPHPVER=${PHP_VERSION}" _in.sh && \
     ./install.sh && \
-	rm -rf ../openlitespeed ../openlitespeed-$OLS_VERSION.tgz
+	echo 'cloud-docker' > /usr/local/lsws/PLAT && rm -rf /openlitespeed && rm /openlitespeed-$OLS_VERSION.tgz
 
 RUN apt-get install lsphp$PHP_VERSION lsphp$PHP_VERSION-common lsphp$PHP_VERSION-mysql lsphp$PHP_VERSION-opcache \
     lsphp$PHP_VERSION-curl lsphp$PHP_VERSION-json lsphp$PHP_VERSION-imagick lsphp$PHP_VERSION-redis lsphp$PHP_VERSION-intl \

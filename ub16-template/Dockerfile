@@ -1,6 +1,9 @@
 FROM ubuntu:16.04
 ENV DEBIAN_FRONTEND noninteractive
 
+ARG OLS_VERSION
+ARG PHP_VERSION
+
 RUN apt-get update && apt-get install apt-utils -y && \
     apt-get install wget curl tzdata dialog -y && \
     apt-get install -qq -y libcurl3 libenchant1c2a libxpm4 libc-client2007e libmcrypt4 libaspell15 librecode0 \
@@ -8,16 +11,13 @@ RUN apt-get update && apt-get install apt-utils -y && \
 
 RUN wget -O -  https://get.acme.sh | sh
 
-ARG OLS_VERSION
-ARG PHP_VERSION
-
 RUN curl -O https://openlitespeed.org/preuse/openlitespeed-$OLS_VERSION.tgz && \
     tar xvf openlitespeed-$OLS_VERSION.tgz && cd openlitespeed && \
     LINENUM=$(grep -n "LSPHPVER=" _in.sh | cut -d: -f 1) && \
     sed -i "${LINENUM}d" _in.sh && \
     sed -i "${LINENUM}iLSPHPVER=${PHP_VERSION}" _in.sh && \
     ./install.sh && \
-	rm -rf ../openlitespeed ../openlitespeed-$OLS_VERSION.tgz
+	echo 'cloud-docker' > /usr/local/lsws/PLAT && rm -rf /openlitespeed && rm /openlitespeed-$OLS_VERSION.tgz
 
 RUN apt-get install -y lsphp$PHP_VERSION lsphp$PHP_VERSION-curl lsphp$PHP_VERSION-dbg lsphp$PHP_VERSION-gd lsphp$PHP_VERSION-gmp lsphp$PHP_VERSION-imap \
                        lsphp$PHP_VERSION-intl lsphp$PHP_VERSION-ldap lsphp$PHP_VERSION-mcrypt lsphp$PHP_VERSION-mysql lsphp$PHP_VERSION-pspell lsphp$PHP_VERSION-recode lsphp$PHP_VERSION-sqlite \
