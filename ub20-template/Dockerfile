@@ -13,6 +13,8 @@ RUN curl -O https://openlitespeed.org/preuse/openlitespeed-$OLS_VERSION.tgz && \
     LINENUM=$(grep -n "LSPHPVER=" _in.sh | cut -d: -f 1) && \
     sed -i "${LINENUM}d" _in.sh && \
     sed -i "${LINENUM}iLSPHPVER=${PHP_VERSION}" _in.sh && \
+    LINENUM2=$(grep -n "lsphp$LSPHPVER-json" _in.sh | cut -d: -f 1) && \
+    sed -i "${LINENUM2}d" _in.sh && \
     ./install.sh && \
 	echo 'cloud-docker' > /usr/local/lsws/PLAT && rm -rf /openlitespeed && rm /openlitespeed-$OLS_VERSION.tgz
 
