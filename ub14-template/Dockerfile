@@ -7,7 +7,7 @@ ARG PHP_VERSION
 RUN apt-get update && apt-get install apt-utils -y && \
     apt-get install -y wget curl tzdata dialog  && \
     apt-get install -qq -y --no-install-recommends python python-dev gcc libssl-dev openssl libffi-dev ca-certificates libaugeas0 augeas-lenses python-virtualenv && \
-    apt-get install -qq -y libenchant1c2a libfreetype6 libmcrypt4 libxpm4 libjpeg-turbo8 libpng12-0 libxslt1.1 libc-client2007e libvpx-dev libicu52 librecode-dev libtidy-0.99-0 libmysqlclient18
+    apt-get install -qq -y libenchant1c2a libfreetype6 libmcrypt4 libxpm4 libjpeg-turbo8 libpng12-0 libxslt1.1 libc-client2007e libvpx-dev libicu52 librecode-dev libtidy-0.99-0 libmysqlclient18 && crontab -e
 
 RUN wget -O -  https://get.acme.sh | sh
 

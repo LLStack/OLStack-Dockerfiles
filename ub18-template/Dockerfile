@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ARG OLS_VERSION
 ARG PHP_VERSION
 
-RUN apt-get update && apt-get install apt-utils -y && apt-get install wget curl cron tzdata dialog -y
+RUN apt-get update && apt-get install apt-utils -y && apt-get install wget curl cron tzdata dialog -y && crontab -e
 
 RUN wget -O -  https://get.acme.sh | sh
 

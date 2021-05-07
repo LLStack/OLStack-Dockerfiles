@@ -7,7 +7,7 @@ ARG PHP_VERSION
 RUN apt-get update && apt-get install apt-utils -y && \
     apt-get install wget curl tzdata dialog -y && \
     apt-get install -qq -y libcurl3 libenchant1c2a libxpm4 libc-client2007e libmcrypt4 libaspell15 librecode0 \
-                           libvpx-dev libtidy-0.99-0 libxslt1.1 libmysqlclient20 libpng12-0 libjpeg-turbo8 libfreetype6
+                           libvpx-dev libtidy-0.99-0 libxslt1.1 libmysqlclient20 libpng12-0 libjpeg-turbo8 libfreetype6 && crontab -e
 
 RUN wget -O -  https://get.acme.sh | sh
 
