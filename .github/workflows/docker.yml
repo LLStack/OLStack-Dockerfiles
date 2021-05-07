@@ -1,0 +1,72 @@
+name: docker-build
+
+on:
+  push:
+    branches:
+      - master
+
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Docker build and push
+        if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
+        run: |
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+          cd ub18-template
+          bash build.sh --ols 1.6.21 --php 80 --tag latest --push
+          bash build.sh --ols 1.6.21 --php 74 --push
+          bash build.sh --ols 1.6.21 --php 73 --push
+          bash build.sh --ols 1.6.21 --php 72 --push
+          bash build.sh --ols 1.6.21 --php 71 --push
+          bash build.sh --ols 1.6.21 --php 70 --push
+          bash build.sh --ols 1.6.21 --php 56 --push
+          bash build.sh --ols 1.7.10 --php 80 --push
+          bash build.sh --ols 1.7.10 --php 74 --push
+          bash build.sh --ols 1.7.10 --php 73 --push
+          bash build.sh --ols 1.7.10 --php 72 --push
+          bash build.sh --ols 1.7.10 --php 71 --push
+          bash build.sh --ols 1.7.10 --php 70 --push
+          bash build.sh --ols 1.7.10 --php 56 --push
+          cd ub16-template
+          bash build.sh --ols 1.6.21 --php 55 --push
+          bash build.sh --ols 1.6.21 --php 54 --push
+          bash build.sh --ols 1.7.10 --php 55 --push
+          bash build.sh --ols 1.7.10 --php 54 --push
+          cd ub14-template
+          bash build.sh --ols 1.6.21 --php 53 --push
+          bash build.sh --ols 1.7.10 --php 53 --push
+        env: 
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Docker build
+        if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'pull_request' }}
+        run: |
+          cd ub18-template
+          bash build.sh --ols 1.6.21 --php 80 --tag latest
+          bash build.sh --ols 1.6.21 --php 74
+          bash build.sh --ols 1.6.21 --php 73
+          bash build.sh --ols 1.6.21 --php 72
+          bash build.sh --ols 1.6.21 --php 71
+          bash build.sh --ols 1.6.21 --php 70
+          bash build.sh --ols 1.6.21 --php 56
+          bash build.sh --ols 1.7.10 --php 80
+          bash build.sh --ols 1.7.10 --php 74
+          bash build.sh --ols 1.7.10 --php 73
+          bash build.sh --ols 1.7.10 --php 72
+          bash build.sh --ols 1.7.10 --php 71
+          bash build.sh --ols 1.7.10 --php 70
+          bash build.sh --ols 1.7.10 --php 56
+          cd ub16-template
+          bash build.sh --ols 1.6.21 --php 55
+          bash build.sh --ols 1.6.21 --php 54
+          bash build.sh --ols 1.7.10 --php 55
+          bash build.sh --ols 1.7.10 --php 54
+          cd ub14-template
+          bash build.sh --ols 1.6.21 --php 53
+          bash build.sh --ols 1.7.10 --php 53

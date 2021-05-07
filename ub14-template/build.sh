@@ -16,10 +16,10 @@ echow(){
 
 help_message(){
     echo -e "\033[1mOPTIONS\033[0m" 
-    echow '-O, --ols [VERSION] -P, --php [lsphpVERSION]'
-    echo "${EPACE}${EPACE}Example: bash build.sh --ols 1.6.21 --php lsphp74"
+    echow '-O, --ols [VERSION] -P, --php [phpVERSION]'
+    echo "${EPACE}${EPACE}Example: bash build.sh --ols 1.6.21 --php 74"
     echow '--push'
-    echo "${EPACE}${EPACE}Example: build.sh --ols 1.6.21 --php lsphp74 --push, will push to the dockerhub"
+    echo "${EPACE}${EPACE}Example: build.sh --ols 1.6.21 --php 74 --push, will push to the dockerhub"
     exit 0
 }
 
