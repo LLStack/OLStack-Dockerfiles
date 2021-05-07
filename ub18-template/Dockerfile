@@ -31,6 +31,7 @@ EXPOSE 7080
 
 ADD docker.conf /usr/local/lsws/conf/templates/docker.conf
 ADD setup_docker.sh /usr/local/lsws/bin/setup_docker.sh
+ADD httpd_config.xml /usr/local/lsws/conf/httpd_config.xml
 ADD htpasswd /usr/local/lsws/admin/conf/htpasswd
 
 RUN chmod +x /usr/local/lsws/bin/setup_docker.sh && bash /usr/local/lsws/bin/setup_docker.sh && rm /usr/local/lsws/bin/setup_docker.sh
