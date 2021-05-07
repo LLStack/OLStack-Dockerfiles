@@ -18,8 +18,10 @@ jobs:
         if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
         run: |
           echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+          cd ub20-template
+          bash build.sh --ols 1.6.21 --php 80 --tag latest --push、
+          bash build.sh --ols 1.7.10 --php 80 --push
           cd ub18-template
-          bash build.sh --ols 1.6.21 --php 80 --tag latest --push
           bash build.sh --ols 1.6.21 --php 74 --push
           bash build.sh --ols 1.6.21 --php 73 --push
           bash build.sh --ols 1.6.21 --php 72 --push
